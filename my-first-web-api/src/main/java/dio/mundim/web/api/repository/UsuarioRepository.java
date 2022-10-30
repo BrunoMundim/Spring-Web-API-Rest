@@ -1,5 +1,7 @@
 package dio.mundim.web.api.repository;
 
+import dio.mundim.web.api.handler.BusinessException;
+import dio.mundim.web.api.handler.CampoObrigatorioException;
 import dio.mundim.web.api.model.Usuario;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +11,12 @@ import java.util.List;
 @Repository
 public class UsuarioRepository {
     public void save(Usuario usuario){
+        if(usuario.getLogin() == null){
+            throw new CampoObrigatorioException("login");
+        }
+        if(usuario.getPassword() == null){
+            throw new CampoObrigatorioException("password");
+        }
         if(usuario.getId() == null)
             System.out.println("SAVE - Recebendo usuário na camada do repositório!");
         else
